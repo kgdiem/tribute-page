@@ -3,7 +3,6 @@ body{
 }
 
 #header{
-    margin-top: 5%;
     text-align: center;
 }
 
@@ -23,8 +22,21 @@ body{
     font-size: 1.5em;
 }
 
+#content div:last-child{
+    text-align: center;
+}
+
 #content div p:first-child{
     margin-top: 0;
+}
+
+iframe{
+    max-width: 100%;
+}
+
+footer{
+    padding-left: 2.5%;
+    text-align: center;
 }
 
 @media screen and (max-width: 450px){
