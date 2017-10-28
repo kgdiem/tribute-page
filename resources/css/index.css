@@ -5,6 +5,7 @@ body{
 
 #header{
     text-align: center;
+    background: #efefef;
 }
 
 #header h1{
@@ -12,19 +13,21 @@ body{
     margin: 0;
 }
 
-#header img{
-    max-width: 100%;
-    width: 95%;
-    height: auto;
-}
-
 #content{
     padding: 2.5%;
+    padding-top: 0;
     font-size: 1.5em;
+    background: linear-gradient(to bottom, #efefef, white);
 }
 
 #content div:last-child{
     text-align: center;
+}
+
+#content img{
+    max-width: 100%;
+    width: 100%;
+    height: auto;
 }
 
 #content div p:first-child{
