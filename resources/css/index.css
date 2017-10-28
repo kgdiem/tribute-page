@@ -8,7 +8,8 @@ body{
 }
 
 #header h1{
-    font-size: 4em;
+    font-size: 5em;
+    margin: 0;
 }
 
 #header img{
@@ -18,4 +19,10 @@ body{
 #content{
     padding: 2.5%;
     font-size: 1.5em;
+}
+
+@media screen and (max-width: 450px){
+    #header h1{
+        font-size: 4em;
+    }
 }
