@@ -23,9 +23,8 @@ body{
     font-size: 1.5em;
 }
 
-#content div:first-child{
+#content div:last-child{
     text-align: center;
-    margin-bottom: 2.5%;
 }
 
 #content div p:first-child{
