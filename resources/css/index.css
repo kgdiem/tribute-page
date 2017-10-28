@@ -59,6 +59,37 @@ iframe{
     border-radius: 10px;
 }
 
+#labels-left, #labels-right{
+    position: absolute;
+    display: inline-block;
+    font-size: 1.2em;
+}
+
+#labels-left{
+    margin-left: -380px;
+    text-align: right;
+}
+
+#labels-left .label:first-child{
+    margin-top: 16px;
+}
+
+#labels-right{
+    margin-left: 25px;
+    text-align: left;
+}
+
+.label div{
+    border: 1px solid black;
+    display: inline-block;
+    padding: 2px;
+}
+
+.label p{
+    margin: 0;
+    display: inline-block;
+}
+
 #dots{
     position: absolute;
     display: inline-block;

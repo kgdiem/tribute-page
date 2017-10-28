@@ -25,21 +25,40 @@ function addDotPositioning(){
 
     const yearMargin = getYearMargin(lengthOfTimeline, dotCount, dotHeight, start, end);
 
+    const leftLabels = Array.from(document.querySelectorAll('#labels-left .label:not(:first-child)'));
+    const rightLabels = Array.from(document.querySelectorAll('#labels-right .label'));
+
     let dotElement;
     let dotYear;
+    let label;
+    let margin;
+    let lastMargin = 0;
     let lastYear = start;
 
     for(i = 1; i < dotCount - 1; i++){
         dotElement = dotElements[i];
         dotYear = getDotYear(dotElement);
-        
-        dotElement.style.marginTop = (yearMargin * (dotYear - lastYear));
+        margin = (yearMargin * (dotYear - lastYear));
+
+        dotElement.style.marginTop = margin;
+
+        label = (i % 2 !== 0) ? rightLabels.shift() : leftLabels.shift();
+
+        label.style.marginTop = margin + lastMargin + (dotHeight*1.37);
 
         lastYear = dotYear;
+        lastMargin = margin;
     }
 
     lastDotMargin = (yearMargin * (end - lastYear) - 10);
     lastDot.style.marginTop = lastDotMargin >= 0 ? lastDotMargin : 0;
+
+    if(dotCount % 2 === 0){
+        rightLabels.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
+    }
+    else{
+        leftLabels.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
+    }
 }
 
 function getDotYear(dot){
