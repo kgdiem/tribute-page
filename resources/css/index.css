@@ -36,6 +36,12 @@ iframe{
 
 #timeline{
     text-align: center;
+    padding: 2.5%;
+}
+
+#timeline h2{
+    font-size: 4em;
+    margin: 0;
 }
 
 #line{
@@ -50,7 +56,7 @@ iframe{
 #dots{
     position: absolute;
     display: inline-block;
-    margin-left: -28px;
+    margin-left: -29px;
     margin-top: 10px;
     color: white;
 }
@@ -71,11 +77,16 @@ iframe{
 
 footer{
     padding-left: 2.5%;
+    padding-right: 2.5%;
     text-align: center;
 }
 
 @media screen and (max-width: 450px){
     #header h1{
         font-size: 4em;
+    }
+
+    #timeline h2{
+        font-size: 3em;
     }
 }
