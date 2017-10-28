@@ -1,0 +1,16 @@
+#header{
+    margin-top: 5%;
+    text-align: center;
+}
+
+#header h1{
+    font-size: 4em;
+}
+
+#header img{
+    max-width: 100%;
+}
+
+#body{
+    padding: 2.5%;
+}
