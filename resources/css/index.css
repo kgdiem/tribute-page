@@ -31,6 +31,10 @@ body{
     margin-top: 0;
 }
 
+iframe{
+    max-width: 100%;
+}
+
 footer{
     padding-left: 2.5%;
     text-align: center;
