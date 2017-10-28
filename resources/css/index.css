@@ -1,9 +1,11 @@
 body{
     font-family: 'Saira Extra Condensed', sans-serif;
+    margin: 0;
 }
 
 #header{
     text-align: center;
+    background: #efefef;
 }
 
 #header h1{
@@ -11,19 +13,21 @@ body{
     margin: 0;
 }
 
-#header img{
-    max-width: 100%;
-    width: 95%;
-    height: auto;
-}
-
 #content{
     padding: 2.5%;
+    padding-top: 0;
     font-size: 1.5em;
+    background: linear-gradient(to bottom, #efefef, white);
 }
 
 #content div:last-child{
     text-align: center;
+}
+
+#content img{
+    max-width: 100%;
+    width: 100%;
+    height: auto;
 }
 
 #content div p:first-child{
@@ -37,6 +41,8 @@ iframe{
 #timeline{
     text-align: center;
     padding: 2.5%;
+    padding-top: 0;
+    background: linear-gradient(to bottom, white,#efefef);
 }
 
 #timeline h2{
@@ -47,7 +53,7 @@ iframe{
 #line{
     width: 5px;
     height: 800px;
-    background-color: gray;
+    background-color: #71777D;
     position: relative;
     display: inline-block;
     border-radius: 10px;
@@ -79,6 +85,7 @@ footer{
     padding-left: 2.5%;
     padding-right: 2.5%;
     text-align: center;
+    background: #efefef;
 }
 
 @media screen and (max-width: 450px){
