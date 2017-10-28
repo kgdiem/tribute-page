@@ -10,9 +10,10 @@ addDotPositioning();
 
 function addDotPositioning(){
     const dotElements = document.getElementsByClassName('dot');
+    const timeline = document.getElementById('line');
 
     const dotCount = dotElements.length;
-    const lengthOfTimeline = document.getElementById('line').clientHeight - 10; //margin top on dots container
+    const lengthOfTimeline = timeline.clientHeight - 10; //margin top on dots container
 
     const start = getDotYear(dotElements[0]);
 
@@ -22,7 +23,7 @@ function addDotPositioning(){
 
     const end = getDotYear(lastDot);
 
-    const yearMargin = getYearMargin(lengthOfTimeline, dotHeight, start, end);
+    const yearMargin = getYearMargin(lengthOfTimeline, dotCount, dotHeight, start, end);
 
     let dotElement;
     let dotYear;
@@ -37,7 +38,8 @@ function addDotPositioning(){
         lastYear = dotYear;
     }
 
-    lastDot.style.marginTop = (yearMargin * (end - lastYear) - dotHeight + 3);
+    lastDotMargin = (yearMargin * (end - lastYear) - 10);
+    lastDot.style.marginTop = lastDotMargin >= 0 ? lastDotMargin : 0;
 }
 
 function getDotYear(dot){
@@ -46,16 +48,16 @@ function getDotYear(dot){
     return parseInt(p.textContent);
 }
 
-function getYearMargin(lineHeight, dotHeight, startDate, endDate){
+function getYearMargin(lineHeight, dotCount, dotHeight, startDate, endDate){
     const startOfLastDot = lineHeight - dotHeight - 10;
 
     const endOfFirstDot = dotHeight + 10;
 
-    const spaceBetween = startOfLastDot - endOfFirstDot;
+    const spaceBetween = (startOfLastDot - endOfFirstDot) - (dotCount - 2) * dotHeight;
 
     const years = endDate - startDate;
 
     const marginPerYear = spaceBetween/years;
 
-    return marginPerYear;
+    return marginPerYear < 0 ? 0 : marginPerYear;
 }
