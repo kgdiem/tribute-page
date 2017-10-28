@@ -27,6 +27,11 @@ body{
     margin-top: 0;
 }
 
+footer{
+    padding-left: 2.5%;
+    text-align: center;
+}
+
 @media screen and (max-width: 450px){
     #header h1{
         font-size: 4em;
