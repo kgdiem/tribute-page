@@ -85,7 +85,7 @@ function getYearMargin(lineHeight, dotCount, dotHeight, startDate, endDate){
 }
 
 function checkMobileTimeline(){
-    
+
     const leftLabelDiv = document.querySelector('#labels-left');
 
     if(document.body.clientWidth <= 780){
@@ -95,7 +95,7 @@ function checkMobileTimeline(){
         leftLabelDiv.style.textAlign = 'left';
     }
     else{
-        leftLabelDiv.style.marginLeft = '-380px';
+        leftLabelDiv.style.marginLeft = '-385px';
         leftLabelDiv.style.textAlign = 'right';
     }
 }
