@@ -1,3 +1,6 @@
+*{
+    overflow-x: hidden;    
+}
 body{
     font-family: 'Saira Extra Condensed', sans-serif;
     margin: 0;
@@ -121,13 +124,12 @@ footer{
 }
 
 @media screen and (max-width: 780px){
-    #timeline{
-        overflow-x: scroll;
-    }
 
     #timeline-container{
         text-align: left;
-        margin-left: 15px;
+        padding-left: 25px;
+        position: relative;
+        overflow-x: scroll;
     }
 
     #dots{
