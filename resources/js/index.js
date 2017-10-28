@@ -1,3 +1,5 @@
+"use strict";
+
 appendFontTag();
 
 addDotPositioning();
@@ -38,10 +40,11 @@ function addDotPositioning(){
     let dotYear;
     let label;
     let margin;
+    let lastDotMargin;
     let lastMargin = 0;
     let lastYear = start;
 
-    for(i = 1; i < dotCount - 1; i++){
+    for(let i = 1; i < dotCount - 1; i++){
         dotElement = dotElements[i];
         dotYear = getDotYear(dotElement);
         margin = (yearMargin * (dotYear - lastYear));
