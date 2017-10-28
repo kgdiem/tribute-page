@@ -34,6 +34,41 @@ iframe{
     max-width: 100%;
 }
 
+#timeline{
+    text-align: center;
+}
+
+#line{
+    width: 5px;
+    height: 800px;
+    background-color: gray;
+    position: relative;
+    display: inline-block;
+    border-radius: 10px;
+}
+
+#dots{
+    position: absolute;
+    display: inline-block;
+    margin-left: -28px;
+    margin-top: 10px;
+    color: white;
+}
+
+.dot{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px solid white;
+    background-color: black;
+    font-size: 1.4em;
+}
+
+.dot p{
+    margin: 0;
+    margin-top: 6px;
+}
+
 footer{
     padding-left: 2.5%;
     text-align: center;
