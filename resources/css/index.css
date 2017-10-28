@@ -38,6 +38,11 @@ iframe{
     text-align: center;
 }
 
+#timeline h2{
+    font-size: 4em;
+    margin: 0;
+}
+
 #line{
     width: 5px;
     height: 800px;
@@ -71,11 +76,16 @@ iframe{
 
 footer{
     padding-left: 2.5%;
+    padding-right: 2.5%;
     text-align: center;
 }
 
 @media screen and (max-width: 450px){
     #header h1{
         font-size: 4em;
+    }
+
+    #timeline h2{
+        font-size: 3em;
     }
 }
