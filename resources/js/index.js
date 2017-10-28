@@ -1,10 +1,23 @@
 "use strict";
 
+/**
+ * Setup page
+ */
+
 appendFontTag();
 
-addDotPositioning();
+const leftLabelDiv = document.querySelector('#labels-left');
+const leftLabelDivLoadMargin = getComputedStyle(leftLabelDiv).marginLeft;
+const rightLabelDiv = document.querySelector('#labels-right');
+const rightLabelsMargin = getComputedStyle(rightLabelDiv).marginLeft;
 
-window.onresize = checkMobileTimeline;
+addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, rightLabelsMargin);
+
+window.onresize = checkMobileTimeline.bind(this, leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
+
+/**
+ * Methods
+ */
 
 function appendFontTag(){
     const fontTag = document.createElement('link');
@@ -16,7 +29,7 @@ function appendFontTag(){
     document.getElementsByTagName('head')[0].appendChild(fontTag);
 }
 
-function addDotPositioning(){
+function addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, rightLabelsMargin){
     const dotElements = document.getElementsByClassName('dot');
     const timeline = document.getElementById('line');
     const dotsContainer = getComputedStyle(document.getElementById('dots'));
@@ -37,8 +50,8 @@ function addDotPositioning(){
 
     const yearMargin = getYearMargin(lengthOfTimeline, dotCount, containerMargin, dotHeight, start, end);
 
-    const leftLabels = Array.from(document.querySelectorAll('#labels-left .label:not(:first-child)'));
-    const rightLabels = Array.from(document.querySelectorAll('#labels-right .label'));
+    const leftLabels = Array.from(leftLabelDiv.querySelectorAll('.label:not(:first-child)'));
+    const rightLabels = Array.from(rightLabelDiv.querySelectorAll('.label'));
 
     let dotElement;
     let dotYear;
@@ -73,7 +86,7 @@ function addDotPositioning(){
         leftLabels.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
     }
 
-    checkMobileTimeline();
+    checkMobileTimeline(leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
 }
 
 function getDotYear(dot){
@@ -96,18 +109,14 @@ function getYearMargin(lineHeight, dotCount, margin, dotHeight, startDate, endDa
     return marginPerYear < 0 ? 0 : marginPerYear;
 }
 
-function checkMobileTimeline(){
-
-    const leftLabelDiv = document.querySelector('#labels-left');
+function checkMobileTimeline(leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin){
 
     if(document.body.clientWidth <= 780){
-        const rightLabelsMargin = getComputedStyle(document.querySelector('#labels-right')).marginLeft;
-
         leftLabelDiv.style.marginLeft = rightLabelsMargin;
         leftLabelDiv.style.textAlign = 'left';
     }
     else{
-        leftLabelDiv.style.marginLeft = '-385px';
+        leftLabelDiv.style.marginLeft = leftLabelDivLoadMargin;
         leftLabelDiv.style.textAlign = 'right';
     }
 }
