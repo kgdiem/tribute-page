@@ -18,9 +18,11 @@ function addDotPositioning(){
 
     const lastDot = dotElements[dotCount - 1];
 
+    const dotHeight = lastDot.clientHeight;
+
     const end = getDotYear(lastDot);
 
-    const yearMargin = getYearMargin(lengthOfTimeline, lastDot.clientHeight, start, end);
+    const yearMargin = getYearMargin(lengthOfTimeline, dotHeight, start, end);
 
     let dotElement;
     let dotYear;
@@ -35,7 +37,7 @@ function addDotPositioning(){
         lastYear = dotYear;
     }
 
-    
+    lastDot.style.marginTop = (yearMargin * (end - lastYear) - dotHeight + 3);
 }
 
 function getDotYear(dot){
