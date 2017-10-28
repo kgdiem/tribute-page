@@ -7,6 +7,7 @@ fontTag.href = 'https://fonts.googleapis.com/css?family=Saira+Extra+Condensed';
 document.getElementsByTagName('head')[0].appendChild(fontTag);
 
 addDotPositioning();
+window.onresize = checkMobileTimeline;
 
 function addDotPositioning(){
     const dotElements = document.getElementsByClassName('dot');
@@ -59,6 +60,8 @@ function addDotPositioning(){
     else{
         leftLabels.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
     }
+
+    checkMobileTimeline();
 }
 
 function getDotYear(dot){
@@ -79,4 +82,20 @@ function getYearMargin(lineHeight, dotCount, dotHeight, startDate, endDate){
     const marginPerYear = spaceBetween/years;
 
     return marginPerYear < 0 ? 0 : marginPerYear;
+}
+
+function checkMobileTimeline(){
+    
+    const leftLabelDiv = document.querySelector('#labels-left');
+
+    if(document.body.clientWidth <= 780){
+        const rightLabelsMargin = getComputedStyle(document.querySelector('#labels-right')).marginLeft;
+
+        leftLabelDiv.style.marginLeft = rightLabelsMargin;
+        leftLabelDiv.style.textAlign = 'left';
+    }
+    else{
+        leftLabelDiv.style.marginLeft = '-380px';
+        leftLabelDiv.style.textAlign = 'right';
+    }
 }

@@ -88,6 +88,7 @@ iframe{
 .label p{
     margin: 0;
     display: inline-block;
+    white-space: nowrap;
 }
 
 #dots{
@@ -117,6 +118,21 @@ footer{
     padding-right: 2.5%;
     text-align: center;
     background: #efefef;
+}
+
+@media screen and (max-width: 780px){
+    #timeline{
+        overflow-x: scroll;
+    }
+
+    #timeline-container{
+        text-align: left;
+        margin-left: 15px;
+    }
+
+    #dots{
+        text-align: center;
+    }
 }
 
 @media screen and (max-width: 450px){
