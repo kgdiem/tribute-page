@@ -1,24 +1,19 @@
 "use strict";
 
-/**
- * Setup page
- */
+document.addEventListener("DOMContentLoaded", setupPage);
 
-appendFontTag();
+function setupPage(){
+    appendFontTag();
 
-const leftLabelDiv = document.querySelector('#labels-left');
-const leftLabelDivLoadMargin = getComputedStyle(leftLabelDiv).marginLeft;
-const rightLabelDiv = document.querySelector('#labels-right');
-const rightLabelsMargin = getComputedStyle(rightLabelDiv).marginLeft;
+    const leftLabelDiv = document.querySelector('#labels-left');
+    const leftLabelDivLoadMargin = getComputedStyle(leftLabelDiv).marginLeft;
+    const rightLabelDiv = document.querySelector('#labels-right');
+    const rightLabelsMargin = getComputedStyle(rightLabelDiv).marginLeft;
 
-addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, rightLabelsMargin);
+    addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, rightLabelsMargin);
 
-window.onresize = checkMobileTimeline.bind(this, leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
-
-/**
- * Methods
- */
-
+    window.onresize = checkMobileTimeline.bind(this, leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
+}
 function appendFontTag(){
     const fontTag = document.createElement('link');
     
@@ -53,6 +48,7 @@ function changeDotMargins(leftLabelDiv, rightLabelDiv){
     const lastDot = dotElements[dotCount - 1];
     
     const dotHeight = lastDot.clientHeight;
+    const adjustedDotHeight = (dotHeight*1.37);
 
     const start = getDotYear(dotElements[0]);
 
@@ -82,7 +78,7 @@ function changeDotMargins(leftLabelDiv, rightLabelDiv){
 
         label = (i % 2 !== 0) ? rightLabels.shift() : leftLabels.shift();
 
-        labelMargin = margin + lastMargin + (dotHeight*1.37);
+        labelMargin = margin + lastMargin + adjustedDotHeight;
         label.style.marginTop = labelMargin;
 
         lastYear = dotYear;
@@ -94,7 +90,7 @@ function changeDotMargins(leftLabelDiv, rightLabelDiv){
 
     const lastLabel = dotCount % 2 === 0 ? rightLabels : leftLabels;
 
-    lastLabel.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
+    lastLabel.shift().style.marginTop = lastDotMargin + lastMargin + adjustedDotHeight;
 
 }
 
