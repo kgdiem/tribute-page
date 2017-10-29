@@ -69,7 +69,7 @@ iframe{
 }
 
 #labels-left{
-    margin-left: -385px;
+    margin-left: -386px;
     text-align: right;
 }
 
@@ -106,14 +106,14 @@ iframe{
     height: 50px;
     width: 50px;
     border-radius: 50%;
-    border: 1px solid white;
+    border: 1px solid #4fd5f7;
     background-color: black;
     font-size: 1.4em;
 }
 
 .dot p{
     margin: 0;
-    margin-top: 6px;
+    margin-top: 8px;
 }
 
 footer{

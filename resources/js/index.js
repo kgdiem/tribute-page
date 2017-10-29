@@ -30,38 +30,50 @@ function appendFontTag(){
 }
 
 function addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, rightLabelsMargin){
-    const dotElements = document.getElementsByClassName('dot');
+
+    changeDotMargins(leftLabelDiv, rightLabelDiv);
+
+    checkMobileTimeline(leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
+
+}
+
+function changeDotMargins(leftLabelDiv, rightLabelDiv){
     const timeline = document.getElementById('line');
-    const dotsContainer = getComputedStyle(document.getElementById('dots'));
+    const dotsContainerDiv = document.getElementById('dots');
+    const dotElements = dotsContainerDiv.getElementsByClassName('dot');
 
-    const containerMargin = parseInt(dotsContainer.marginTop);
+    const dotsContainerMargin = getComputedStyle(dotsContainerDiv).marginTop;
 
-    const dotCount = dotElements.length;
+    const containerMargin = parseInt(dotsContainerMargin);
 
     const lengthOfTimeline = timeline.clientHeight - containerMargin;
 
-    const start = getDotYear(dotElements[0]);
+    const dotCount = dotElements.length;
 
     const lastDot = dotElements[dotCount - 1];
-
+    
     const dotHeight = lastDot.clientHeight;
+
+    const start = getDotYear(dotElements[0]);
 
     const end = getDotYear(lastDot);
 
-    const yearMargin = getYearMargin(lengthOfTimeline, dotCount, containerMargin, dotHeight, start, end);
-
     const leftLabels = Array.from(leftLabelDiv.querySelectorAll('.label:not(:first-child)'));
     const rightLabels = Array.from(rightLabelDiv.querySelectorAll('.label'));
+
+    const yearMargin = getYearMargin(lengthOfTimeline, dotCount, containerMargin, dotHeight, start, end);
+    const dotDount = dotElements.length;
 
     let dotElement;
     let dotYear;
     let label;
     let margin;
     let lastDotMargin;
+    let labelMargin;
     let lastMargin = 0;
     let lastYear = start;
 
-    for(let i = 1; i < dotCount - 1; i++){
+    for(let i = 1; i <  dotCount - 1; i++){
         dotElement = dotElements[i];
         dotYear = getDotYear(dotElement);
         margin = (yearMargin * (dotYear - lastYear));
@@ -70,7 +82,8 @@ function addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, 
 
         label = (i % 2 !== 0) ? rightLabels.shift() : leftLabels.shift();
 
-        label.style.marginTop = margin + lastMargin + (dotHeight*1.37);
+        labelMargin = margin + lastMargin + (dotHeight*1.37);
+        label.style.marginTop = labelMargin;
 
         lastYear = dotYear;
         lastMargin = margin;
@@ -79,14 +92,10 @@ function addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, 
     lastDotMargin = (yearMargin * (end - lastYear) - containerMargin);
     lastDot.style.marginTop = lastDotMargin >= 0 ? lastDotMargin : 0;
 
-    if(dotCount % 2 === 0){
-        rightLabels.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
-    }
-    else{
-        leftLabels.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
-    }
+    const lastLabel = dotCount % 2 === 0 ? rightLabels : leftLabels;
 
-    checkMobileTimeline(leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
+    lastLabel.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
+
 }
 
 function getDotYear(dot){
