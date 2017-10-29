@@ -1,42 +1,75 @@
-const fontTag = document.createElement('link');
+"use strict";
 
-fontTag.rel = 'stylesheet';
-fontTag.type = 'text/css';
-fontTag.href = 'https://fonts.googleapis.com/css?family=Saira+Extra+Condensed';
+document.addEventListener("DOMContentLoaded", setupPage);
 
-document.getElementsByTagName('head')[0].appendChild(fontTag);
+function setupPage(){
+    appendFontTag();
 
-addDotPositioning();
-window.onresize = checkMobileTimeline;
+    const leftLabelDiv = document.querySelector('#labels-left');
+    const leftLabelDivLoadMargin = getComputedStyle(leftLabelDiv).marginLeft;
+    const rightLabelDiv = document.querySelector('#labels-right');
+    const rightLabelsMargin = getComputedStyle(rightLabelDiv).marginLeft;
 
-function addDotPositioning(){
-    const dotElements = document.getElementsByClassName('dot');
+    addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, rightLabelsMargin);
+
+    window.onresize = checkMobileTimeline.bind(this, leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
+}
+function appendFontTag(){
+    const fontTag = document.createElement('link');
+    
+    fontTag.rel = 'stylesheet';
+    fontTag.type = 'text/css';
+    fontTag.href = 'https://fonts.googleapis.com/css?family=Saira+Extra+Condensed';
+
+    document.getElementsByTagName('head')[0].appendChild(fontTag);
+}
+
+function addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, rightLabelsMargin){
+
+    changeDotMargins(leftLabelDiv, rightLabelDiv);
+
+    checkMobileTimeline(leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
+
+}
+
+function changeDotMargins(leftLabelDiv, rightLabelDiv){
     const timeline = document.getElementById('line');
+    const dotsContainerDiv = document.getElementById('dots');
+    const dotElements = dotsContainerDiv.getElementsByClassName('dot');
+
+    const dotsContainerMargin = getComputedStyle(dotsContainerDiv).marginTop;
+
+    const containerMargin = parseInt(dotsContainerMargin);
+
+    const lengthOfTimeline = timeline.clientHeight - containerMargin;
 
     const dotCount = dotElements.length;
-    const lengthOfTimeline = timeline.clientHeight - 10; //margin top on dots container
+
+    const lastDot = dotElements[dotCount - 1];
+    
+    const dotHeight = lastDot.clientHeight;
+    const adjustedDotHeight = (dotHeight*1.37);
 
     const start = getDotYear(dotElements[0]);
 
-    const lastDot = dotElements[dotCount - 1];
-
-    const dotHeight = lastDot.clientHeight;
-
     const end = getDotYear(lastDot);
 
-    const yearMargin = getYearMargin(lengthOfTimeline, dotCount, dotHeight, start, end);
+    const leftLabels = Array.from(leftLabelDiv.querySelectorAll('.label:not(:first-child)'));
+    const rightLabels = Array.from(rightLabelDiv.querySelectorAll('.label'));
 
-    const leftLabels = Array.from(document.querySelectorAll('#labels-left .label:not(:first-child)'));
-    const rightLabels = Array.from(document.querySelectorAll('#labels-right .label'));
+    const yearMargin = getYearMargin(lengthOfTimeline, dotCount, containerMargin, dotHeight, start, end);
+    const dotDount = dotElements.length;
 
     let dotElement;
     let dotYear;
     let label;
     let margin;
+    let lastDotMargin;
+    let labelMargin;
     let lastMargin = 0;
     let lastYear = start;
 
-    for(i = 1; i < dotCount - 1; i++){
+    for(let i = 1; i <  dotCount - 1; i++){
         dotElement = dotElements[i];
         dotYear = getDotYear(dotElement);
         margin = (yearMargin * (dotYear - lastYear));
@@ -45,23 +78,20 @@ function addDotPositioning(){
 
         label = (i % 2 !== 0) ? rightLabels.shift() : leftLabels.shift();
 
-        label.style.marginTop = margin + lastMargin + (dotHeight*1.37);
+        labelMargin = margin + lastMargin + adjustedDotHeight;
+        label.style.marginTop = labelMargin;
 
         lastYear = dotYear;
         lastMargin = margin;
     }
 
-    lastDotMargin = (yearMargin * (end - lastYear) - 10);
+    lastDotMargin = (yearMargin * (end - lastYear) - containerMargin);
     lastDot.style.marginTop = lastDotMargin >= 0 ? lastDotMargin : 0;
 
-    if(dotCount % 2 === 0){
-        rightLabels.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
-    }
-    else{
-        leftLabels.shift().style.marginTop = lastDotMargin + lastMargin + (dotHeight*1.37);
-    }
+    const lastLabel = dotCount % 2 === 0 ? rightLabels : leftLabels;
 
-    checkMobileTimeline();
+    lastLabel.shift().style.marginTop = lastDotMargin + lastMargin + adjustedDotHeight;
+
 }
 
 function getDotYear(dot){
@@ -70,10 +100,10 @@ function getDotYear(dot){
     return parseInt(p.textContent);
 }
 
-function getYearMargin(lineHeight, dotCount, dotHeight, startDate, endDate){
-    const startOfLastDot = lineHeight - dotHeight - 10;
+function getYearMargin(lineHeight, dotCount, margin, dotHeight, startDate, endDate){
+    const startOfLastDot = lineHeight - dotHeight - margin;
 
-    const endOfFirstDot = dotHeight + 10;
+    const endOfFirstDot = dotHeight + margin;
 
     const spaceBetween = (startOfLastDot - endOfFirstDot) - (dotCount - 2) * dotHeight;
 
@@ -84,18 +114,14 @@ function getYearMargin(lineHeight, dotCount, dotHeight, startDate, endDate){
     return marginPerYear < 0 ? 0 : marginPerYear;
 }
 
-function checkMobileTimeline(){
-
-    const leftLabelDiv = document.querySelector('#labels-left');
+function checkMobileTimeline(leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin){
 
     if(document.body.clientWidth <= 780){
-        const rightLabelsMargin = getComputedStyle(document.querySelector('#labels-right')).marginLeft;
-
         leftLabelDiv.style.marginLeft = rightLabelsMargin;
         leftLabelDiv.style.textAlign = 'left';
     }
     else{
-        leftLabelDiv.style.marginLeft = '-385px';
+        leftLabelDiv.style.marginLeft = leftLabelDivLoadMargin;
         leftLabelDiv.style.textAlign = 'right';
     }
 }
