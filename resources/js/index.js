@@ -5,6 +5,11 @@ document.addEventListener("DOMContentLoaded", setupPage);
 function setupPage(){
     appendFontTag();
 
+    const image = document.querySelector("img[data-src]");
+    image.src = image.getAttribute('data-src');
+
+    loadImage(image);
+
     const leftLabelDiv = document.querySelector('#labels-left');
     const leftLabelDivLoadMargin = getComputedStyle(leftLabelDiv).marginLeft;
     const rightLabelDiv = document.querySelector('#labels-right');
@@ -14,6 +19,7 @@ function setupPage(){
 
     window.onresize = checkMobileTimeline.bind(this, leftLabelDiv, leftLabelDivLoadMargin, rightLabelsMargin);
 }
+
 function appendFontTag(){
     const fontTag = document.createElement('link');
     
@@ -22,6 +28,17 @@ function appendFontTag(){
     fontTag.href = 'https://fonts.googleapis.com/css?family=Saira+Extra+Condensed';
 
     document.getElementsByTagName('head')[0].appendChild(fontTag);
+}
+
+function loadImage(image){
+    fetch('assets/img/talkingheads.jpg')
+        .then((response) => {
+            return response.blob();
+        })
+        .then((blob) => {
+            const imgUrl = URL.createObjectURL(blob);
+            image.src = imgUrl;
+        });
 }
 
 function addDotPositioning(leftLabelDiv, leftLabelDivLoadMargin, rightLabelDiv, rightLabelsMargin){
