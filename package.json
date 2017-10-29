@@ -1,0 +1,19 @@
+{
+  "name": "tribute-page",
+  "version": "1.0.0",
+  "description": "Tribute Page for FCC",
+  "main": "resources/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kgdiem/tribute-page.git"
+  },
+  "author": "Kevin Diem",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kgdiem/tribute-page/issues"
+  },
+  "homepage": "https://github.com/kgdiem/tribute-page#readme"
+}
